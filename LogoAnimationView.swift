@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct LogoAnimationView: View {
+public struct LogoAnimationView: View {
     @State private var isAnimating = false
 
-    var body: some View {
+    public var body: some View {
         Image("logo")
             .resizable()
             .scaledToFit()
