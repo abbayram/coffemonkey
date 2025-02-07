@@ -60,4 +60,20 @@ class FirebaseManager {
             }
         }
     }
+
+    func connectPlayer(player: Player, completion: @escaping (Bool) -> Void) {
+        let playerData: [String: Any] = [
+            "name": player.name,
+            "health": player.health
+        ]
+
+        db.collection("players").document(player.id.uuidString).setData(playerData) { error in
+            if let error = error {
+                print("Error connecting player: \(error)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
 }
