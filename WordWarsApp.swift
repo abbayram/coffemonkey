@@ -3,7 +3,7 @@ import Firebase
 
 @main
 struct WordWarsApp: App {
-    @StateObject private var gameManager = GameManager(player1: Player(name: "Player 1"), player2: Player(name: "Player 2"))
+    @StateObject private var gameManager = GameManager(player1: Player(name: "Player 1"))
     @State private var isGameStarted = false
 
     init() {
