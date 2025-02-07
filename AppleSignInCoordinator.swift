@@ -1,4 +1,5 @@
 import AuthenticationServices
+import FirebaseAuth
 
 class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
