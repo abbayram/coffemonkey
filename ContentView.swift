@@ -2,8 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
-    @State private var player1Word: String = ""
-    @State private var player2Word: String = ""
+    @State private var playerWord: String = ""
     @State private var showLogoAnimation = true
 
     var body: some View {
@@ -28,38 +27,23 @@ struct ContentView: View {
                     .font(.title)
                     .padding()
 
-                HStack {
-                    VStack {
-                        Text("Player 1")
-                            .font(.headline)
-                        TextField("Enter word", text: $player1Word)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        Text("Score: \(gameManager.player1Score)")
-                        Text("Health: \(gameManager.player1.health)")
-                    }
-                    .padding()
-
-                    VStack {
-                        Text("Player 2")
-                            .font(.headline)
-                        TextField("Enter word", text: $player2Word)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                        Text("Score: \(gameManager.player2Score)")
-                        Text("Health: \(gameManager.player2.health)")
-                    }
-                    .padding()
+                VStack {
+                    Text("Player")
+                        .font(.headline)
+                    TextField("Enter word", text: $playerWord)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Text("Score: \(gameManager.player1Score)")
+                    Text("Health: \(gameManager.player1.health)")
                 }
+                .padding()
 
                 Button(action: {
-                    gameManager.handleAttack(from: gameManager.player1, with: player1Word)
-                    gameManager.handleAttack(from: gameManager.player2, with: player2Word)
+                    gameManager.handleAttack(from: gameManager.player1, with: playerWord)
                     gameManager.startNewRound()
-                    player1Word = ""
-                    player2Word = ""
+                    playerWord = ""
                 }) {
-                    Text("Submit Words")
+                    Text("Submit Word")
                         .font(.title)
                         .padding()
                         .background(Color.blue)

@@ -2,8 +2,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct StartPageView: View {
-    @State private var player1Name: String = ""
-    @State private var player2Name: String = ""
+    @State private var playerName: String = ""
     @State private var isConnected: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
@@ -14,18 +13,14 @@ struct StartPageView: View {
                 .font(.largeTitle)
                 .padding()
 
-            TextField("Player 1 Name", text: $player1Name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            TextField("Player 2 Name", text: $player2Name)
+            TextField("Player Name", text: $playerName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
 
             Button(action: {
-                connectPlayers()
+                connectPlayer()
             }) {
-                Text("Connect Players")
+                Text("Next")
                     .font(.title)
                     .padding()
                     .background(Color.blue)
@@ -74,14 +69,13 @@ struct StartPageView: View {
         }
     }
 
-    private func connectPlayers() {
-        let player1 = Player(name: player1Name)
-        let player2 = Player(name: player2Name)
-        FirebaseManager.shared.connectPlayers(player1: player1, player2: player2) { success in
+    private func connectPlayer() {
+        let player = Player(name: playerName)
+        FirebaseManager.shared.connectPlayer(player: player) { success in
             if success {
                 isConnected = true
             } else {
-                alertMessage = "Failed to connect players. Please try again."
+                alertMessage = "Failed to connect player. Please try again."
                 showAlert = true
             }
         }
