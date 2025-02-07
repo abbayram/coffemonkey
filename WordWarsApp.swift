@@ -1,8 +1,10 @@
 import SwiftUI
 import Firebase
 
+@main
 struct WordWarsApp: App {
     @StateObject private var gameManager = GameManager(player1: Player(name: "Player 1"), player2: Player(name: "Player 2"))
+    @State private var isGameStarted = false
 
     init() {
         FirebaseApp.configure()
@@ -10,8 +12,17 @@ struct WordWarsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(gameManager)
+            if isGameStarted {
+                ContentView()
+                    .environmentObject(gameManager)
+            } else {
+                StartPageView()
+                    .onAppear {
+                        NotificationCenter.default.addObserver(forName: NSNotification.Name("GameStarted"), object: nil, queue: .main) { _ in
+                            isGameStarted = true
+                        }
+                    }
+            }
         }
     }
 }

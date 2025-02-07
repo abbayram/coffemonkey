@@ -4,11 +4,13 @@ import Firebase
 class FirebaseManager {
     static let shared = FirebaseManager()
     private var db = Firestore.firestore()
+    private var gameSessionId: String?
 
     private init() {}
 
     func connectPlayers(player1: Player, player2: Player, completion: @escaping (Bool) -> Void) {
         let gameSession = db.collection("gameSessions").document()
+        gameSessionId = gameSession.documentID
         let data: [String: Any] = [
             "player1": player1.name,
             "player2": player2.name,
@@ -50,5 +52,9 @@ class FirebaseManager {
             }
             completion(document.data())
         }
+    }
+
+    func arePlayersConnected() -> Bool {
+        return gameSessionId != nil
     }
 }

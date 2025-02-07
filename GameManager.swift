@@ -17,12 +17,14 @@ class GameManager: ObservableObject {
         self.currentCategory = ""
         self.player1Score = 0
         self.player2Score = 0
+        print("GameManager initialized with player1: \(player1.name), player2: \(player2.name)")
     }
 
     func startNewRound() {
         currentRound += 1
         currentLetter = generateRandomLetter()
         currentCategory = generateRandomCategory()
+        print("New round started: \(currentRound), Letter: \(currentLetter), Category: \(currentCategory)")
     }
 
     func calculateScore(for word: String) -> Int {
@@ -37,6 +39,7 @@ class GameManager: ObservableObject {
         } else {
             player1Score -= score
         }
+        print("Attack handled from \(player.name) with word \(word). Score: \(score)")
     }
 
     private func generateRandomLetter() -> String {
@@ -58,6 +61,7 @@ class Player: Identifiable, Equatable {
     init(name: String, health: Int = 100) {
         self.name = name
         self.health = health
+        print("Player initialized with name: \(name), health: \(health)")
     }
 
     static func == (lhs: Player, rhs: Player) -> Bool {

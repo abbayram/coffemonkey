@@ -13,7 +13,7 @@ struct AttackAnimationView: View {
                         .font(.largeTitle)
                         .foregroundColor(.red)
                         .transition(.scale)
-                        .animation(.easeInOut(duration: 0.5))
+                        .withAnimation(.easeInOut(duration: 0.5))
                     Spacer()
                 }
             }
@@ -28,6 +28,18 @@ struct AttackAnimationView: View {
                     ProgressBar(value: $player2Health)
                 }
             }
+        }
+        .onAppear {
+            print("AttackAnimationView appeared")
+        }
+        .onChange(of: isAttacking) { newValue in
+            print("isAttacking changed to \(newValue)")
+        }
+        .onChange(of: player1Health) { newValue in
+            print("player1Health changed to \(newValue)")
+        }
+        .onChange(of: player2Health) { newValue in
+            print("player2Health changed to \(newValue)")
         }
     }
 }
@@ -46,7 +58,7 @@ struct ProgressBar: View {
                 Rectangle()
                     .frame(width: min(CGFloat(self.value) / 100.0 * geometry.size.width, geometry.size.width), height: geometry.size.height)
                     .foregroundColor(.green)
-                    .animation(.linear)
+                    .withAnimation(.linear)
             }
             .cornerRadius(45.0)
         }
