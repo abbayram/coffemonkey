@@ -50,7 +50,7 @@ class GameManager: ObservableObject {
     }
 }
 
-class Player: Identifiable {
+class Player: Identifiable, Equatable {
     let id = UUID()
     var name: String
     var health: Int
@@ -58,5 +58,9 @@ class Player: Identifiable {
     init(name: String, health: Int = 100) {
         self.name = name
         self.health = health
+    }
+
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        return lhs.id == rhs.id
     }
 }
