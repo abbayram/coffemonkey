@@ -1,5 +1,4 @@
 import SwiftUI
-import LogoAnimationView
 
 struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
