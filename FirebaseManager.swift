@@ -1,5 +1,6 @@
 import Foundation
 import Firebase
+import FirebaseAuth
 
 class FirebaseManager {
     static let shared = FirebaseManager()
