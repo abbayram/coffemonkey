@@ -17,7 +17,8 @@ let package = Package(
         .target(
             name: "coffemonkey",
             dependencies: [
-                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk")
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                "LogoAnimationView"
             ]),
         .testTarget(
             name: "coffemonkeyTests",
