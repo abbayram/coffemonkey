@@ -3,8 +3,8 @@ import Firebase
 
 struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
-    @State private var playerWord: String = ""
     @State private var showLogoAnimation = true
+    @State private var isGameStarted = false
 
     var body: some View {
         VStack {
@@ -39,42 +39,24 @@ struct ContentView: View {
                         }
                     }
             } else {
-                Text("Round \(gameManager.currentRound)")
-                    .font(.largeTitle)
+                if isGameStarted {
+                    NavigationView {
+                        GameView()
+                            .environmentObject(gameManager)
+                    }
+                } else {
+                    Button(action: {
+                        isGameStarted = true
+                    }) {
+                        Text("Start Game")
+                            .font(.title)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                     .padding()
-
-                Text("Letter: \(gameManager.currentLetter)")
-                    .font(.title)
-                    .padding()
-
-                Text("Category: \(gameManager.currentCategory)")
-                    .font(.title)
-                    .padding()
-
-                VStack {
-                    Text("Player")
-                        .font(.headline)
-                    TextField("Enter word", text: $playerWord)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    Text("Score: \(gameManager.player1Score)")
-                    Text("Health: \(gameManager.player1.health)")
                 }
-                .padding()
-
-                Button(action: {
-                    gameManager.handleAttack(from: gameManager.player1, with: playerWord)
-                    gameManager.startNewRound()
-                    playerWord = ""
-                }) {
-                    Text("Submit Word")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
             }
         }
         .onAppear {
