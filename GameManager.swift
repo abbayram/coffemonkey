@@ -2,22 +2,18 @@ import Foundation
 
 class GameManager: ObservableObject {
     @Published var player1: Player
-    @Published var player2: Player
     @Published var currentRound: Int
     @Published var currentLetter: String
     @Published var currentCategory: String
     @Published var player1Score: Int
-    @Published var player2Score: Int
 
-    init(player1: Player, player2: Player) {
+    init(player1: Player) {
         self.player1 = player1
-        self.player2 = player2
         self.currentRound = 0
         self.currentLetter = ""
         self.currentCategory = ""
         self.player1Score = 0
-        self.player2Score = 0
-        print("GameManager initialized with player1: \(player1.name), player2: \(player2.name)")
+        print("GameManager initialized with player1: \(player1.name)")
     }
 
     func startNewRound() {
@@ -34,11 +30,7 @@ class GameManager: ObservableObject {
 
     func handleAttack(from player: Player, with word: String) {
         let score = calculateScore(for: word)
-        if player == player1 {
-            player2Score -= score
-        } else {
-            player1Score -= score
-        }
+        player1Score -= score
         print("Attack handled from \(player.name) with word \(word). Score: \(score)")
     }
 
