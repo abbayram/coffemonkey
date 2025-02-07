@@ -29,7 +29,8 @@ struct OptionsPageView: View {
             Spacer()
 
             Button(action: {
-                // Action for playing online with random people
+                // Navigate to ContentView for playing online with random people
+                navigateToContentView()
             }) {
                 Text("Play Online with Random People")
                     .font(.title)
@@ -41,7 +42,8 @@ struct OptionsPageView: View {
             .padding()
 
             Button(action: {
-                // Action for playing with friends
+                // Navigate to ContentView for playing with friends
+                navigateToContentView()
             }) {
                 Text("Play Friends")
                     .font(.title)
@@ -54,6 +56,12 @@ struct OptionsPageView: View {
 
             Spacer()
         }
+    }
+
+    private func navigateToContentView() {
+        // Implement navigation to ContentView
+        // This is a placeholder for the actual navigation logic
+        print("Navigating to ContentView")
     }
 }
 

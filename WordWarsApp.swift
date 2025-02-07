@@ -16,7 +16,7 @@ struct WordWarsApp: App {
                 ContentView()
                     .environmentObject(gameManager)
             } else {
-                StartPageView()
+                OptionsPageView()
                     .onAppear {
                         NotificationCenter.default.addObserver(forName: NSNotification.Name("GameStarted"), object: nil, queue: .main) { _ in
                             isGameStarted = true
