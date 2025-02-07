@@ -1,6 +1,5 @@
 import SwiftUI
 import AuthenticationServices
-import GoogleSignIn
 
 struct StartPageView: View {
     @State private var player1Name: String = ""
@@ -69,22 +68,6 @@ struct StartPageView: View {
             .signInWithAppleButtonStyle(.black)
             .frame(width: 280, height: 45)
             .padding()
-
-            // Google Sign-In Button
-            Button(action: {
-                handleGoogleSignIn()
-            }) {
-                HStack {
-                    Image(systemName: "globe")
-                    Text("Sign in with Google")
-                }
-                .font(.title)
-                .padding()
-                .background(Color.red)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding()
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -110,15 +93,5 @@ struct StartPageView: View {
 
     private func handleAppleSignIn(authorization: ASAuthorization) {
         // Handle Apple Sign-In
-    }
-
-    private func handleGoogleSignIn() {
-        // Handle Google Sign-In
-    }
-}
-
-struct StartPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        StartPageView()
     }
 }
