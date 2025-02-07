@@ -63,27 +63,6 @@ struct AttackAnimationView: View {
     }
 }
 
-struct ProgressBar: View {
-    @Binding var value: Int
-
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .opacity(0.3)
-                    .foregroundColor(.gray)
-
-                Rectangle()
-                    .frame(width: min(CGFloat(self.value) / 100.0 * geometry.size.width, geometry.size.width), height: geometry.size.height)
-                    .foregroundColor(.green)
-                    .animation(.linear(duration: 0.5))
-            }
-            .cornerRadius(45.0)
-        }
-    }
-}
-
 struct AttackAnimationView_Previews: PreviewProvider {
     static var previews: some View {
         AttackAnimationView(isAttacking: .constant(true), player1Health: .constant(100), player2Health: .constant(100))
