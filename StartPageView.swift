@@ -1,4 +1,6 @@
 import SwiftUI
+import AuthenticationServices
+import GoogleSignIn
 
 struct StartPageView: View {
     @State private var player1Name: String = ""
@@ -47,6 +49,42 @@ struct StartPageView: View {
                 }
                 .padding()
             }
+
+            // Apple ID Sign-In Button
+            SignInWithAppleButton(
+                .signIn,
+                onRequest: { request in
+                    request.requestedScopes = [.fullName, .email]
+                },
+                onCompletion: { result in
+                    switch result {
+                    case .success(let authorization):
+                        handleAppleSignIn(authorization: authorization)
+                    case .failure(let error):
+                        alertMessage = "Apple Sign-In failed: \(error.localizedDescription)"
+                        showAlert = true
+                    }
+                }
+            )
+            .signInWithAppleButtonStyle(.black)
+            .frame(width: 280, height: 45)
+            .padding()
+
+            // Google Sign-In Button
+            Button(action: {
+                handleGoogleSignIn()
+            }) {
+                HStack {
+                    Image(systemName: "globe")
+                    Text("Sign in with Google")
+                }
+                .font(.title)
+                .padding()
+                .background(Color.red)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .padding()
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -68,6 +106,14 @@ struct StartPageView: View {
 
     private func startGame() {
         NotificationCenter.default.post(name: NSNotification.Name("GameStarted"), object: nil)
+    }
+
+    private func handleAppleSignIn(authorization: ASAuthorization) {
+        // Handle Apple Sign-In
+    }
+
+    private func handleGoogleSignIn() {
+        // Handle Google Sign-In
     }
 }
 

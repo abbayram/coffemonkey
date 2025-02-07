@@ -5,6 +5,7 @@ class FirebaseManager {
     static let shared = FirebaseManager()
     private var db = Firestore.firestore()
     private var gameSessionId: String?
+    private var isPlayerRegistered: Bool = false
 
     private init() {}
 
@@ -56,5 +57,28 @@ class FirebaseManager {
 
     func arePlayersConnected() -> Bool {
         return gameSessionId != nil
+    }
+
+    func handleAuthenticatedUser(user: User, completion: @escaping (Bool) -> Void) {
+        guard !isPlayerRegistered else {
+            completion(false)
+            return
+        }
+
+        let userData: [String: Any] = [
+            "uid": user.uid,
+            "email": user.email ?? "",
+            "displayName": user.displayName ?? ""
+        ]
+
+        db.collection("users").document(user.uid).setData(userData) { error in
+            if let error = error {
+                print("Error storing user data: \(error)")
+                completion(false)
+            } else {
+                self.isPlayerRegistered = true
+                completion(true)
+            }
+        }
     }
 }
