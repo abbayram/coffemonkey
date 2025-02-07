@@ -60,13 +60,16 @@ struct ContentView: View {
             .padding()
         }
         .onAppear {
-            gameManager.startNewRound()
+            print("ContentView appeared")
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(GameManager(player1: Player(name: "Player 1"), player2: Player(name: "Player 2")))
+        .onChange(of: gameManager.currentRound) { newValue in
+            print("Current round changed to \(newValue)")
+        }
+        .onChange(of: gameManager.currentLetter) { newValue in
+            print("Current letter changed to \(newValue)")
+        }
+        .onChange(of: gameManager.currentCategory) { newValue in
+            print("Current category changed to \(newValue)")
+        }
     }
 }
