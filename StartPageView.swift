@@ -40,77 +40,54 @@ struct StartPageView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
 
-            Button(action: {
-                connectPlayer()
-            }) {
-                Text("Next")
-                    .font(.title)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
-            .disabled(isConnected)
-
-            if isConnected {
-                Button(action: {
-                    startGame()
-                }) {
-                    Text("Start Game")
-                        .font(.title)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
-            }
-
-            // Apple ID Sign-In Button
-            SignInWithAppleButton(
-                .signIn,
-                onRequest: { request in
-                    request.requestedScopes = [.fullName, .email]
-                },
-                onCompletion: { result in
-                    switch result {
-                    case .success(let authorization):
-                        handleAppleSignIn(authorization: authorization)
-                    case .failure(let error):
-                        alertMessage = "Apple Sign-In failed: \(error.localizedDescription)"
-                        showAlert = true
+            NavigationView {
+                VStack {
+                    Button(action: {
+                        connectPlayer()
+                    }) {
+                        Text("Next")
+                            .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
+                    .padding()
+                    .disabled(isConnected)
+
+                    if isConnected {
+                        NavigationLink(destination: OptionsPageView()) {
+                            Text("Go to Options")
+                                .font(.title)
+                                .padding()
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .padding()
+                    }
+
+                    // Apple ID Sign-In Button
+                    SignInWithAppleButton(
+                        .signIn,
+                        onRequest: { request in
+                            request.requestedScopes = [.fullName, .email]
+                        },
+                        onCompletion: { result in
+                            switch result {
+                            case .success(let authorization):
+                                handleAppleSignIn(authorization: authorization)
+                            case .failure(let error):
+                                alertMessage = "Apple Sign-In failed: \(error.localizedDescription)"
+                                showAlert = true
+                            }
+                        }
+                    )
+                    .signInWithAppleButtonStyle(.black)
+                    .frame(width: 280, height: 45)
+                    .padding()
                 }
-            )
-            .signInWithAppleButtonStyle(.black)
-            .frame(width: 280, height: 45)
-            .padding()
-
-            // New buttons for playing online with random people and playing with friends
-            Button(action: {
-                // Action for playing online with random people
-            }) {
-                Text("Play Online with Random People")
-                    .font(.title)
-                    .padding()
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding()
-
-            Button(action: {
-                // Action for playing with friends
-            }) {
-                Text("Play Friends")
-                    .font(.title)
-                    .padding()
-                    .background(Color.purple)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
