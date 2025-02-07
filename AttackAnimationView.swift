@@ -22,11 +22,11 @@ struct AttackAnimationView: View {
             HStack {
                 VStack {
                     Text("Player 1 Health")
-                    ProgressBar(value: $player1Health)
+                    ProgressBar(progress: $player1Health)
                 }
                 VStack {
                     Text("Player 2 Health")
-                    ProgressBar(value: $player2Health)
+                    ProgressBar(progress: $player2Health)
                 }
             }
         }
