@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProgressBar: View {
-    @Binding var value: Int
+    @Binding var progress: Int
 
     var body: some View {
         GeometryReader { geometry in
@@ -12,7 +12,7 @@ struct ProgressBar: View {
                     .foregroundColor(.gray)
 
                 Rectangle()
-                    .frame(width: min(CGFloat(self.value) / 100.0 * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .frame(width: min(CGFloat(self.progress) / 100.0 * geometry.size.width, geometry.size.width), height: geometry.size.height)
                     .foregroundColor(.green)
             }
             .cornerRadius(45.0)
@@ -22,6 +22,6 @@ struct ProgressBar: View {
 
 struct ProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBar(value: .constant(50))
+        ProgressBar(progress: .constant(50))
     }
 }
