@@ -13,7 +13,6 @@ struct AttackAnimationView: View {
                         .font(.largeTitle)
                         .foregroundColor(.red)
                         .transition(.scale)
-                        .withAnimation(.easeInOut(duration: 0.5))
                     Spacer()
                 }
             }
@@ -58,7 +57,6 @@ struct ProgressBar: View {
                 Rectangle()
                     .frame(width: min(CGFloat(self.value) / 100.0 * geometry.size.width, geometry.size.width), height: geometry.size.height)
                     .foregroundColor(.green)
-                    .withAnimation(.linear)
             }
             .cornerRadius(45.0)
         }
