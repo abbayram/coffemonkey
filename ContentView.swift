@@ -8,6 +8,29 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            HStack {
+                Button(action: {
+                    // Profile settings action
+                }) {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                }
+                .padding(.leading)
+
+                Spacer()
+
+                Button(action: {
+                    // Other necessary settings action
+                }) {
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                }
+                .padding(.trailing)
+            }
+            .padding(.top)
+
             if showLogoAnimation {
                 LogoAnimationView()
                     .onAppear {
